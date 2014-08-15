@@ -30,7 +30,7 @@ customerControllers.controller('customerListController', [
 
         function init() {
             $scope.fromCustomer = 0;
-            $scope.pageSize = 25;
+            $scope.pageSize = 20;
             $scope.toCustomer = $scope.pageSize - 1;
             $scope.totalCustomers = 0;
 

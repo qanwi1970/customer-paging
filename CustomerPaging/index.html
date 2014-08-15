@@ -18,14 +18,18 @@
         <table id="customersTable" class="table table-condensed table-striped">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Favorite Color</th>
+                    <th>Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Company</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="customer in customers">
-                    <td>{{customer.Name}}</td>
-                    <td>{{customer.FavoriteColor}}</td>
+                    <td>{{customer.Id}}</td>
+                    <td>{{customer.FirstName}}</td>
+                    <td>{{customer.LastName}}</td>
+                    <td>{{customer.Company}}</td>
                 </tr>
             </tbody>
         </table>

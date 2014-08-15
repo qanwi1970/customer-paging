@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cogimator.SampleDataGenerator">
+      <HintPath>..\packages\Cogimator.SampleDataGenerator.0.30.0.25\lib\net45\Cogimator.SampleDataGenerator.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Web.DynamicData" />

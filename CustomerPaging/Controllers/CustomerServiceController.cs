@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
+using Cogimator.SampleDataGenerator;
 using CustomerPaging.Models;
 using CustomerPaging.Results;
 
@@ -47,20 +49,13 @@ namespace CustomerPaging.Controllers
         {
         }
 
-        private static readonly Customer[] CustomerTable =
-        {
-            new Customer
-            {
-                Id = 1,
-                Name = "Darth Vader",
-                FavoriteColor = "Black"
-            },
-            new Customer
-            {
-                Id = 2,
-                Name = "Luke Skywalker",
-                FavoriteColor = "White"
-            }
-        };
+        private static readonly Random Random = new Random();
+        private static readonly Customer[] CustomerTable = Generator
+            .For<Customer>()
+            .For(x => x.FirstName).ChooseFrom(StaticData.FirstNames)
+            .For(x => x.LastName).ChooseFrom(StaticData.LastNames)
+            .For(x => x.Id).CreateUsing(() => Random.Next())
+            .For(x => x.Company).ChooseFrom(StaticData.Companies)
+            .Generate(100).ToArray();
     }
 }
