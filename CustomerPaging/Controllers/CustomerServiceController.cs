@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Http;
 using CustomerPaging.Models;
 using CustomerPaging.Results;
@@ -11,43 +10,26 @@ namespace CustomerPaging.Controllers
         // GET: api/CustomerService
         public CustomerGetListResult Get()
         {
-            long? fromCustomer = 0;
-            long? toCustomer = 27;
+            long fromCustomer = 0;
+            long toCustomer = long.MaxValue;
             var range = Request.Headers.Range;
             if (range != null)
             {
-                fromCustomer = range.Ranges.First().From;
-                toCustomer = range.Ranges.First().To;
+                fromCustomer = range.Ranges.First().From.Value;
+                toCustomer = range.Ranges.First().To.Value;
             }
 
-            var customerList = new[]
-            {
-                new Customer
-                {
-                    Id = 1,
-                    Name = "Darth Vader",
-                    FavoriteColor = "Black"
-                },
-                new Customer
-                {
-                    Id = 2,
-                    Name = "Luke Skywalker",
-                    FavoriteColor = "White"
-                }
-            };
+            var customerList =
+                CustomerTable.Skip((int) fromCustomer).Take((int) toCustomer - (int) fromCustomer + 1).ToList();
 
-            return new CustomerGetListResult(Request, customerList.ToList(), fromCustomer.Value, toCustomer.Value, 1000);
+            return new CustomerGetListResult(Request, customerList, fromCustomer,
+                fromCustomer + customerList.Count() - 1, CustomerTable.Count());
         }
 
         // GET: api/CustomerService/5
         public Customer Get(long id)
         {
-            return new Customer
-            {
-                Id = 1,
-                Name = "Darth Vader",
-                FavoriteColor = "Black"
-            };
+            return CustomerTable.SingleOrDefault(customer => customer.Id == id);
         }
 
         // POST: api/CustomerService
@@ -64,5 +46,21 @@ namespace CustomerPaging.Controllers
         public void Delete(long id)
         {
         }
+
+        private static readonly Customer[] CustomerTable =
+        {
+            new Customer
+            {
+                Id = 1,
+                Name = "Darth Vader",
+                FavoriteColor = "Black"
+            },
+            new Customer
+            {
+                Id = 2,
+                Name = "Luke Skywalker",
+                FavoriteColor = "White"
+            }
+        };
     }
 }

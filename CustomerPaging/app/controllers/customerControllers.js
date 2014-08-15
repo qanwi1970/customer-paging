@@ -32,6 +32,7 @@ customerControllers.controller('customerListController', [
             $scope.fromCustomer = 0;
             $scope.pageSize = 25;
             $scope.toCustomer = $scope.pageSize - 1;
+            $scope.totalCustomers = 0;
 
             getData();
         };
@@ -54,6 +55,9 @@ customerControllers.controller('customerListController', [
                     } else {
                         $('.paging-controls .glyphicon-arrow-left').addClass('disabled');
                     }
+                    $scope.fromCustomer = parseInt(rangeFields[1]);
+                    $scope.toCustomer = parseInt(rangeFields[2]);
+                    $scope.totalCustomers = parseInt(rangeFields[3]);
                 }, function (response) {
                     console.log(response);
                 });

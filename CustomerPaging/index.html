@@ -34,6 +34,10 @@
             <span class="glyphicon glyphicon-arrow-left disabled" id="previousPageBottom" title="Previous Page" ng-click="getPreviousPage()"></span>
             <span class="glyphicon glyphicon-arrow-right disabled" id="nextPageBottom" title="Next Page" ng-click="getNextPage()"></span>
         </div>
+        
+        <div class="row">
+            <h3>Viewing customers {{fromCustomer + 1}} to {{toCustomer + 1}} of {{totalCustomers}}</h3>
+        </div>
     </div>
 
     <script src="Scripts/jquery-1.9.0.js"></script>
