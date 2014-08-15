@@ -1,0 +1,14 @@
+﻿/* Paging Controls */
+/*****************************************/
+
+.paging-controls span {
+    color: #333333;
+    padding: 5px 30px;
+    text-align: center;
+    font-size: 14px;
+    cursor: default;
+}
+
+.paging-controls .disabled {
+    color: #CCCCCC;
+}

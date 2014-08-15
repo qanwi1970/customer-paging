@@ -1,13 +1,47 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="customerApp">
 <head>
-    <title></title>
+    <title>Customer</title>
 
-    <link rel="stylesheet" href="~/Content/css/bootstrap.css" />
+    <link href="Content/bootstrap.css" rel="stylesheet" />
+    <link href="Content/Site.css" rel="stylesheet" />
 </head>
-<body>
-    This is a page
+<body ng-controller="customerListController">
+    <div class="container">
+        <h1>Customers</h1>
 
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular.js"></script>
+        <div class="row paging-controls pull-right">
+            <span class="glyphicon glyphicon-arrow-left disabled" id="previousPageTop" title="Previous Page" ng-click="getPreviousPage()"></span>
+            <span class="glyphicon glyphicon-arrow-right disabled" id="nextPageTop" title="Next Page" ng-click="getNextPage()"></span>
+        </div>
+
+        <table id="customersTable" class="table table-condensed table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Favorite Color</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="customer in customers">
+                    <td>{{customer.Name}}</td>
+                    <td>{{customer.FavoriteColor}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="row paging-controls pull-right">
+            <span class="glyphicon glyphicon-arrow-left disabled" id="previousPageBottom" title="Previous Page" ng-click="getPreviousPage()"></span>
+            <span class="glyphicon glyphicon-arrow-right disabled" id="nextPageBottom" title="Next Page" ng-click="getNextPage()"></span>
+        </div>
+    </div>
+
+    <script src="Scripts/jquery-1.9.0.js"></script>
+    <script src="Scripts/bootstrap.js"></script>
+    <script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-resource.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/controllers/customerControllers.js"></script>
+    <script src="app/services/customerServices.js"></script>
 </body>
 </html>
