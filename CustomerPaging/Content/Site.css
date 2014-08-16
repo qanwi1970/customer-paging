@@ -9,6 +9,4 @@
     cursor: default;
 }
 
-.paging-controls .disabled {
-    color: #CCCCCC;
-}
+.paging-controls .disabled { color: #CCCCCC; }

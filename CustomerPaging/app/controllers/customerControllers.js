@@ -10,22 +10,26 @@ customerControllers.controller('customerListController', [
         init();
 
         $scope.getPreviousPage = function() {
-            $scope.customers = [];
-            $scope.fromCustomer -= $scope.pageSize;
-            if ($scope.fromCustomer < 0) {
-                $scope.fromCustomer = 0;
-            }
-            $scope.toCustomer = $scope.fromCustomer + $scope.pageSize - 1;
+            if ($scope.fromCustomer != 0) {
+                $scope.customers = [];
+                $scope.fromCustomer -= $scope.pageSize;
+                if ($scope.fromCustomer < 0) {
+                    $scope.fromCustomer = 0;
+                }
+                $scope.toCustomer = $scope.fromCustomer + $scope.pageSize - 1;
 
-            getData();
+                getData();
+            }
         };
 
         $scope.getNextPage = function() {
-            $scope.customers = [];
-            $scope.fromCustomer += $scope.pageSize;
-            $scope.toCustomer = $scope.fromCustomer + $scope.pageSize - 1;
+            if ($scope.toCustomer < $scope.totalCustomers - 1) {
+                $scope.customers = [];
+                $scope.fromCustomer += $scope.pageSize;
+                $scope.toCustomer = $scope.fromCustomer + $scope.pageSize - 1;
 
-            getData();
+                getData();
+            }
         };
 
         function init() {
@@ -42,7 +46,7 @@ customerControllers.controller('customerListController', [
             toCustomer = $scope.toCustomer;
 
             customerService.getCustomers({},
-                function (value, headers) {
+                function(value, headers) {
                     $scope.customers = value;
                     var rangeFields = headers('Content-Range').split(/\s|-|\//);
                     if (parseInt(rangeFields[2]) == (parseInt(rangeFields[3] - 1))) {
@@ -58,7 +62,7 @@ customerControllers.controller('customerListController', [
                     $scope.fromCustomer = parseInt(rangeFields[1]);
                     $scope.toCustomer = parseInt(rangeFields[2]);
                     $scope.totalCustomers = parseInt(rangeFields[3]);
-                }, function (response) {
+                }, function(response) {
                     console.log(response);
                 });
         };

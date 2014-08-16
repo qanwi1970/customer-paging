@@ -50,6 +50,7 @@ namespace CustomerPaging.Controllers
         }
 
         private static readonly Random Random = new Random();
+
         private static readonly Customer[] CustomerTable = Generator
             .For<Customer>()
             .For(x => x.FirstName).ChooseFrom(StaticData.FirstNames)

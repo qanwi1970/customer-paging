@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 using CustomerPaging.Models;
 
@@ -21,7 +17,8 @@ namespace CustomerPaging.Results
         private readonly long _to;
         private readonly long? _length;
 
-        public CustomerGetListResult(HttpRequestMessage request, List<Customer> customers, long from, long to, long? length)
+        public CustomerGetListResult(HttpRequestMessage request, List<Customer> customers, long from, long to,
+            long? length)
         {
             _request = request;
             _customers = customers;
@@ -42,7 +39,9 @@ namespace CustomerPaging.Results
                 code = HttpStatusCode.OK;
             }
             var response = _request.CreateResponse(code, _customers);
-            response.Content.Headers.ContentRange = _length.HasValue ? new ContentRangeHeaderValue(_from, _to, _length.Value) : new ContentRangeHeaderValue(_from, _to);
+            response.Content.Headers.ContentRange = _length.HasValue
+                ? new ContentRangeHeaderValue(_from, _to, _length.Value)
+                : new ContentRangeHeaderValue(_from, _to);
             response.Content.Headers.ContentRange.Unit = "customers";
 
             return Task.FromResult(response);
