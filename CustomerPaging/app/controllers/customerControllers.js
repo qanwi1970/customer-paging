@@ -49,7 +49,10 @@ customerControllers.controller('customerListController', [
                 function(value, headers) {
                     $scope.customers = value;
                     var rangeFields = headers('Content-Range').split(/\s|-|\//);
-                    if (parseInt(rangeFields[2]) == (parseInt(rangeFields[3] - 1))) {
+                    $scope.fromCustomer = parseInt(rangeFields[1]);
+                    $scope.toCustomer = parseInt(rangeFields[2]);
+                    $scope.totalCustomers = parseInt(rangeFields[3]);
+                    if ($scope.toCustomer == ($scope.totalCustomers - 1)) {
                         $('.paging-controls .glyphicon-arrow-right').addClass('disabled');
                     } else {
                         $('.paging-controls .glyphicon-arrow-right').removeClass('disabled');
@@ -59,9 +62,6 @@ customerControllers.controller('customerListController', [
                     } else {
                         $('.paging-controls .glyphicon-arrow-left').addClass('disabled');
                     }
-                    $scope.fromCustomer = parseInt(rangeFields[1]);
-                    $scope.toCustomer = parseInt(rangeFields[2]);
-                    $scope.totalCustomers = parseInt(rangeFields[3]);
                 }, function(response) {
                     console.log(response);
                 });

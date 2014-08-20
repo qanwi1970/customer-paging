@@ -20,6 +20,7 @@ namespace CustomerPaging.Results
         public CustomerGetListResult(HttpRequestMessage request, List<Customer> customers, long from, long to,
             long? length)
         {
+            // Save the values for the ExecuteAsync method to use later
             _request = request;
             _customers = customers;
             _from = from;
@@ -32,13 +33,17 @@ namespace CustomerPaging.Results
             HttpStatusCode code;
             if (_length.HasValue)
             {
+                // status is 206 if there's more data, 200 if it's at the end
                 code = _length - 1 == _to ? HttpStatusCode.OK : HttpStatusCode.PartialContent;
             }
             else
             {
+                // status is 200 if we don't know the length
                 code = HttpStatusCode.OK;
             }
+            // create the response from the original request
             var response = _request.CreateResponse(code, _customers);
+            // add the Content-Range header to the response
             response.Content.Headers.ContentRange = _length.HasValue
                 ? new ContentRangeHeaderValue(_from, _to, _length.Value)
                 : new ContentRangeHeaderValue(_from, _to);
